@@ -1,0 +1,48 @@
+plugins {
+  id 'idea'
+  id 'java'
+  id 'application'
+  id 'org.jetbrains.kotlin.jvm' version '1.1.1'
+}
+
+version '0.0.1'
+group 'daggerok'
+
+//def entry = 'daggerok.Main'
+def entry = 'daggerok.MainKt'
+
+mainClassName = entry
+
+jar {
+  manifest { attributes 'Main-Class': entry }
+  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+defaultTasks 'run'
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+ext {
+  kotlinVersion = '1.1.1'
+  sparkjavaVersion = '2.5.5'
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion",
+      "com.sparkjava:spark-core:$sparkjavaVersion",
+      'org.slf4j:slf4j-simple:1.7.21',
+      'org.picocontainer:picocontainer:2.15',
+      'com.github.salomonbrys.kodein:kodein:3.3.0'
+}
+
+sourceSets {
+  main.java.srcDirs += 'java'
+  main.kotlin.srcDirs += 'kotlin'
+}
+
+kotlin {
+  experimental { coroutines 'enable' }
+}

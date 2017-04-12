@@ -5,6 +5,8 @@ jsdk: oraclejdk8
 install: true
 script:
   - gradle clean build
+  - sed -i -e "s/'daggerok.MainKt'/'daggerok.Main'/g" build.gradle
+  - gradle clean build
 cache:
   directories:
     - ~/.gradle
