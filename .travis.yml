@@ -1,0 +1,11 @@
+sudo: required
+dist: trusty
+language: java
+jsdk: oraclejdk8
+install: true
+script:
+  - gradle clean build
+cache:
+  directories:
+    - ~/.gradle
+    - ~/.m2
